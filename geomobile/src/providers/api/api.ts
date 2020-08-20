@@ -26,8 +26,6 @@ export class Api {
       }
     }
 
-    // alert(this.url + '/' + endpoint);
-
     return this.http.get(this.url + '/' + endpoint, reqOpts);
   }
 

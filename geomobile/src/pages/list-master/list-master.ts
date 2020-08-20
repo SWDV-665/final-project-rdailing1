@@ -15,6 +15,7 @@ export class ListMasterPage {
   partner: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items, public modalCtrl: ModalController) {
+    // Load the Group selection list
     this.currentItems = this.items.query(this.navParams.get('email'));
   }
 
@@ -24,15 +25,26 @@ export class ListMasterPage {
   ionViewDidLoad() {
   }
 
+  /*
+    Handle changes to the Group selection
+  */
   onChange(event) {
-    this.partnerWL = this.items.queryPWL(this.getPartnerEmail(this.getMatchName(this.navParams.get('email'), event)), event);
+    // Get the partner's wishlist items
+    try {
+      this.partnerWL = this.items.queryPWL(this.getPartnerEmail(this.getMatchName(this.navParams.get('email'), event)), event);
+    }
+    catch {
+      this.partnerWL = [];
+    }
 
     var ul = document.getElementById("wishlistItems");
 
+    // Clear the current items in the ul
     while (ul.hasChildNodes()) {  
       ul.removeChild(ul.firstChild);
     }
 
+    // Populate the ul with the new items
     for (var i = 0; i < this.partnerWL.length; i++) {
         var item = this.partnerWL[i];
         var li = document.createElement('li');
