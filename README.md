@@ -11,8 +11,12 @@ execute 'node server.js'
 
 open a second command window
 cd to geomobile folder
+execute 'ionic cordova plugin add phonegap-plugin-barcodescanner'
+execute 'npm install @ionic-native/barcode-scanner'
 execute 'ionic serve --type=angular'
 
 The app opens to the login page.  Use the default username and password.  cmdail@earthlink.net can also be used, with the same password.
 Once signed in, click 'Select Group' and choose a group to view.  If a partner has been chosen, that person's wishlist info will be displayed.
 
+The app uses several Angular services, including ion-select and ion-toolbar.
+The app uses the Cordova BarcodeScanner plugin.  The functionality is commented for testing on non-mobile devices.

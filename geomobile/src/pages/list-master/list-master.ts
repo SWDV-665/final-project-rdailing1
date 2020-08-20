@@ -4,6 +4,11 @@ import { IonicPage, ModalController, NavController, NavParams } from 'ionic-angu
 import { Item } from '../../models/item';
 import { Items } from '../../providers';
 
+  // // Below line commented for testing
+// import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+
+
 @IonicPage()
 @Component({
   selector: 'page-list-master',
@@ -13,25 +18,49 @@ export class ListMasterPage {
   currentItems: Item[];
   partnerWL: Item[];
   partner: string;
+  group: string = "";
+  segment:string = "partner";
+  encodeData: any;
+  barcodeScannerOptions: BarcodeScannerOptions;
 
+  // // Below line commented for testing
+  // constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items, public modalCtrl: ModalController, private barcodeScanner: BarcodeScanner) {
   constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items, public modalCtrl: ModalController) {
     // Load the Group selection list
     this.currentItems = this.items.query(this.navParams.get('email'));
+
+    //Options
+    this.barcodeScannerOptions = {
+      showTorchButton: true,
+      showFlipCameraButton: true
+    };
   }
 
   /**
    * The view loaded, let's query our items for the list
   */
   ionViewDidLoad() {
+    // Hide the barcode scanner button after page load (should only be visible on the "me" slide)
+    document.getElementById("scan").style.visibility = "hidden";
   }
 
   /*
     Handle changes to the Group selection
   */
   onChange(event) {
-    // Get the partner's wishlist items
+    this.group = event;
+
+    // Get the wishlist items
     try {
-      this.partnerWL = this.items.queryPWL(this.getPartnerEmail(this.getMatchName(this.navParams.get('email'), event)), event);
+      if (this.segment == "partner") {
+        document.getElementById("scan").style.visibility = "hidden";
+        this.partnerWL = this.items.queryPWL(this.getPartnerEmail(this.getMatchName(this.navParams.get('email'), this.group)), this.group);
+      }
+      else {
+        document.getElementById("scan").style.visibility = "visible";
+        document.getElementById("partnerName").innerHTML = "";
+        this.partnerWL = this.items.queryPWL(this.navParams.get('email'), this.group);
+      }
     }
     catch {
       this.partnerWL = [];
@@ -40,7 +69,7 @@ export class ListMasterPage {
     var ul = document.getElementById("wishlistItems");
 
     // Clear the current items in the ul
-    while (ul.hasChildNodes()) {  
+    while (ul.hasChildNodes()) {
       ul.removeChild(ul.firstChild);
     }
 
@@ -57,14 +86,24 @@ export class ListMasterPage {
    * Prompt the user to add a new item. This shows our ItemCreatePage in a
    * modal and then adds the new item to our data source if the user created one.
    */
-  addItem() {
-    let addModal = this.modalCtrl.create('ItemCreatePage');
-    addModal.onDidDismiss(item => {
-      if (item) {
-        this.items.add(item);
-      }
-    })
-    addModal.present();
+  addItem(event) {
+    // Below line added for testing
+    alert("Scanned!");
+
+    // // Below section commented for testing
+    // this.barcodeScanner
+    //   .scan()
+    //   .then(barcodeData => {
+    //     alert("Barcode data " + JSON.stringify(barcodeData));
+        
+    //     var ul = document.getElementById("wishlistItems");
+    //     var li = document.createElement('li');
+    //     li.appendChild(document.createTextNode(barcodeData.text));
+    //     ul.appendChild(li);
+    //   })
+    //   .catch(err => {
+    //     console.log("Error", err);
+    //   });
   }
 
   /**
@@ -127,5 +166,12 @@ export class ListMasterPage {
   
     return obj.recordset[0].Email;
   }
+
+  segmentChanged(event: any) {
+    if (this.group != "") {
+      this.onChange(this.group);
+    }
+  }
+
 }
 

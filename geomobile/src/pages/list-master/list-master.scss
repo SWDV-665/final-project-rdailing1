@@ -4,8 +4,21 @@ page-list-master {
         text-align: right;
     }
 
-    h3 {
-        font-size: 1em;
+    h3, li {
+        font-size: 1.2em;
         margin: 5px;
+    }
+
+    ion-content {
+        --background: none;
+        background-image: url('../../assets/img/background.png');
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    button {
+        margin: auto;
+        display:block;
     }
 }

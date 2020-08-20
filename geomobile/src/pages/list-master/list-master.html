@@ -1,11 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Partner Wishlist</ion-title>
-    <!-- <ion-buttons end>
-      <button ion-button icon-only (click)="addItem()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons> -->
+    <ion-title>Wishlist</ion-title>
   </ion-navbar>
 
   <ion-select placeholder="Select Group" interface="alert" name="Group" (ionChange)="onChange($event)">
@@ -18,4 +13,23 @@
   <h3 id="partnerName"></h3>
   <br>
   <ul id="wishlistItems"></ul>
+
+  <ion-item text-center id="scan">
+    <button ion-button color="light" title="Scan" size="large" (click)="addItem($event)">
+      <ion-icon name="barcode"></ion-icon>
+    </button>
+  </ion-item>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
+      <ion-segment-button value="partner">
+        Partner
+      </ion-segment-button>
+      <ion-segment-button value="me">
+        Me
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>
