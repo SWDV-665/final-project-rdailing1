@@ -1,0 +1,8 @@
+{
+  "name": "geomobile",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

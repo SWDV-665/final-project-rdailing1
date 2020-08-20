@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Partner Wishlist</ion-title>
+    <!-- <ion-buttons end>
+      <button ion-button icon-only (click)="addItem()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons> -->
+  </ion-navbar>
+
+  <ion-select placeholder="Select Group" interface="alert" name="Group" (ionChange)="onChange($event)">
+    <ion-option *ngFor="let item of currentItems" value={{item.name}}><h2>{{item.name}}</h2></ion-option>
+  </ion-select>
+</ion-header>
+
+<ion-content>
+  <br>
+  <h3 id="partnerName"></h3>
+  <br>
+  <ul id="wishlistItems"></ul>
+</ion-content>

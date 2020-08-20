@@ -1,0 +1,36 @@
+
+<ion-content scroll="false">
+  <div class="splash-bg"></div>
+  <div class="splash-info">
+    <div class="splash-logo"></div>
+
+    <br><br>
+
+    <div class="splash-intro">
+      Gift Exchange Organizer
+    </div>
+  </div>
+  <div padding></div>
+
+  <form (submit)="doLogin()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
+        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
+        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+      </ion-item>
+
+      <br><br>
+
+      <div padding>
+        <button ion-button color="primary" block>{{ 'LOGIN_BUTTON' | translate }}</button>
+      </div>
+
+    </ion-list>
+  </form>
+</ion-content>
