@@ -5,6 +5,7 @@ This is a companion application for the Gift Exchange Organizer web app created 
 Rather than using MongoDB, the database used for this app is the same SQL database used for the companion app.
 
 Usage:
+
 open a command window
 cd to geo-server folder
 execute 'node server.js'
